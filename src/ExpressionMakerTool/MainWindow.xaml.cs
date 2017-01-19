@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Globalization;
 
 namespace ExpressionPackageMaker
 {
@@ -43,6 +44,11 @@ namespace ExpressionPackageMaker
             this.Visibility = Visibility.Hidden;
             await Task.Delay(500);
             System.Drawing.Image screenshot = snippingtool.SnippingTool.Snip();
+
+            //If folder not chosed, ask the user to choose it
+            if (snippingFolder == null) {
+                folder_pick_Click(sender, e);
+            }
             
             if (screenshot != null && snippingFolder != null && !snippingFolder.Equals("")) {
                 Bitmap thumb = null;
@@ -81,9 +87,60 @@ namespace ExpressionPackageMaker
                 oGraphic.DrawImage(screenshot, rect);
                 */
 
+                string expressionText = expressionText_TextBox.Text;
+                if (expressionText!=null && !expressionText.Equals("")) {
+                    thumb = DrawTextOnBitmap(thumb, expressionText);
+                    expressionText_TextBox.Text = "";
+                }
+
                 thumb.Save(snippingFolder + "//EMT"+ DateTime.Now.ToString("yyyyMMddHHmmss") + ".png", ImageFormat.Png);
             }
             this.Visibility = Visibility.Visible;
+        }
+
+        private Bitmap DrawTextOnBitmap(Bitmap bmp, string text) {
+            int fontSize = 13;
+            string familyName = "Times New Roman";
+
+            RectangleF rectf = new RectangleF(fontSize/2, fontSize/2, bmp.Width - fontSize/2, bmp.Height - fontSize/2);
+            Graphics g = Graphics.FromImage(bmp);
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+
+            // Create a StringFormat object with the each line of text, and the block
+            // of text centered on the page.
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Far;
+
+            System.Drawing.Color c = new System.Drawing.Color();
+            SolidBrush b = new SolidBrush(c);
+
+            g.DrawString(text, new Font(familyName, fontSize, System.Drawing.FontStyle.Bold), System.Drawing.Brushes.WhiteSmoke, rectf, stringFormat);
+
+            g.Flush();
+
+            return bmp;
+        }
+
+        private SizeF MeasureString(string text, double fontSize, string typeFace)
+        {
+            FormattedText ft = new FormattedText
+            (
+               text,
+               CultureInfo.CurrentCulture,
+               FlowDirection.LeftToRight,
+               new Typeface(typeFace),
+               fontSize,
+               System.Windows.Media.Brushes.Black
+            );
+            return new SizeF((float)ft.Width, (float)ft.Height);
+        }
+
+        private void expressionText_TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

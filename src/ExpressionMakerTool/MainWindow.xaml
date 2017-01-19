@@ -6,14 +6,19 @@
         xmlns:local="clr-namespace:ExpressionPackageMaker"
         mc:Ignorable="d"
         Topmost="True"
-        Title="EMT" Height="170" Width="420">
+        Title="EMT" Height="309.5" Width="219.5">
     <Grid>
-        <Button x:Name="folder_pick" Content="Folder Pick" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="258" Click="folder_pick_Click" Height="39"/>
-        <Button x:Name="snip" Content="Snip" HorizontalAlignment="Left" Margin="282,10,0,0" VerticalAlignment="Top" Width="100" Click="snip_Click" Height="100"/>
-        <TextBox x:Name="dialogue" HorizontalAlignment="Left" Height="23" Margin="10,106,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="258"/>
-        <TextBox x:Name="height_TextBox" HorizontalAlignment="Left" Height="23" Margin="61,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="height_Label" Content="Height:" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="-4.039,0.084"/>
-        <Label x:Name="width_Label" Content="Width:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="width_TextBox" HorizontalAlignment="Left" Height="23" Margin="61,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="snip" Content="Snip" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="189" Click="snip_Click" Height="74"/>
+        <Label x:Name="label" Content="Expression Text" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top" Width="189" FontSize="10"/>
+        <TextBox x:Name="expressionText_TextBox" HorizontalAlignment="Left" Height="24" Margin="10,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="189" TextChanged="expressionText_TextBox_TextChanged"/>
+        <Expander x:Name="expander" IsExpanded="True" Header="Setting" HorizontalAlignment="Left" Margin="10,139,0,0" VerticalAlignment="Top">
+            <Grid>
+                <Button x:Name="folder_pick" Content="Save Folder Pick" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="171" Click="folder_pick_Click" Height="39"/>
+                <Label x:Name="height_Label" Content="Height:" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="-4.039,0.084"/>
+                <TextBox x:Name="height_TextBox" HorizontalAlignment="Left" Height="23" Margin="61,57,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+                <Label x:Name="width_Label" Content="Width:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top"/>
+                <TextBox x:Name="width_TextBox" HorizontalAlignment="Left" Height="23" Margin="61,78,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+        </Expander>
     </Grid>
 </Window>
